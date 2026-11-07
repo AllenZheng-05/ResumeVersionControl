@@ -1,0 +1,196 @@
+%-------------------------
+% MASTER RESUME
+% This is the comprehensive source of truth for every achievement, experience,
+% project, and skill. It is NOT meant to compile to one page and is never the
+% file submitted to an employer. Tailored, one-page resumes for specific
+% applications are generated from this file into resumes/<category>/.
+%
+% Template: Jake's Resume by Jake Gutierrez, based on https://github.com/sb2nov/resume (MIT)
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabularx}{0.97\textwidth}[t]{@{}X r@{}}
+      #1 & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabularx}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubheadingTwo}[2]{
+  \vspace{-3pt}\item
+    \begin{tabularx}{0.97\textwidth}[t]{@{}X r@{}}
+      \textbf{#1} & #2 \\
+    \end{tabularx}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabularx}{0.97\textwidth}{@{}X r@{}}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabularx}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabularx}{0.97\textwidth}{@{}X r@{}}
+      \small#1 & #2 \\
+    \end{tabularx}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\newcommand{\resumeNotes}[1]{
+  \vspace{-4pt}\item
+    \footnotesize\textit{Notes: #1}\vspace{2pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{center}
+    \textbf{\Huge \scshape Jane Doe} \\ \vspace{1pt}
+    \small (555) 555-5555 $|$ \href{mailto:jane.doe@example.com}{\underline{jane.doe@example.com}} $|$
+    \href{https://www.linkedin.com/in/your-handle/}{\underline{linkedin.com/in/your-handle}} $|$
+    \href{https://github.com/your-handle}{\underline{github.com/your-handle}}
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {\textbf{Example University}}{GPA: 3.80 / 4.00}
+      {Bachelor of Science in Computer Science}{Expected Graduation May 2028}
+      \resumeItem{Honors: Example Honors College, Dean's List
+      \newline Courses: Data Structures \& Algorithms, Operating Systems, Databases, Machine Learning, Software Engineering
+      }
+
+  \resumeSubHeadingListEnd
+
+
+%-----------EXPERIENCE-----------
+% Entries are ordered by most recent START date (not end date / "Present").
+\section{Experience}
+    \resumeSubHeadingListStart
+
+        \resumeSubheading
+          {\textbf{Software Engineering Intern} $|$ Example Corp}{May 2026 -- Aug 2026}
+          {Python, FastAPI, PostgreSQL, Docker, AWS, Kubernetes, Terraform, Redis, Kafka, GraphQL, gRPC, TypeScript, React, Next.js, Tailwind, Jest, Playwright, Datadog, Grafana, Prometheus}{City, ST}
+          \resumeItemListStart
+            \resumeItem{Built a \textbf{FastAPI} service that replaced a manual reporting workflow, saving the team \textbf{10 hours/week}}
+            \resumeItem{Reduced p95 API latency from \textbf{900ms} to \textbf{250ms} by adding \textbf{PostgreSQL} indexes and query caching}
+            \resumeItem{Containerized three legacy services with \textbf{Docker}, cutting new-developer setup time from a day to an hour}
+          \resumeItemListEnd
+          \resumeNotes{Raw material for tailoring -- facts, metrics, and alternate phrasings that don't deserve their own bullet yet; team of 6; wrote pytest suite (85\% coverage); deployed on AWS ECS; presented final demo to 40-person engineering org; on-call rotation for 2 weeks}
+
+        \resumeSubheading
+          {\textbf{Teaching Assistant} $|$ Example University}{Jan 2026 -- May 2026}
+          {Java, Data Structures, Mentorship}{City, ST}
+          \resumeItemListStart
+            \resumeItem{Led weekly lab sections for \textbf{30} students in an introductory data structures course}
+          \resumeItemListEnd
+
+    \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects and Awards}
+    \resumeSubHeadingListStart
+
+    \resumeProjectHeading
+          {\textbf{Example Project} $|$ \emph{TypeScript, React, Next.js, PostgreSQL, Vercel, GitHub Actions, Redis, Kafka, GraphQL, Tailwind, Jest, Playwright, Datadog, Grafana, Prometheus}}{Sept 2026 -- Present}
+          \resumeItemListStart
+            \resumeItem{Built and launched a web app for searching course reviews, reaching \textbf{1,000+} monthly users}
+            \resumeItem{Designed a \textbf{PostgreSQL} schema with full-text search, returning results in under \textbf{50ms}}
+          \resumeItemListEnd
+          \resumeNotes{Solo project; hosted on Vercel; CI with GitHub Actions running lint, typecheck, and 60 unit tests}
+
+    \resumeProjectHeading
+          {\textbf{Example Hackathon Project} (Example Hackathon Winner) $|$ \emph{Python, Flask, React}}{Feb 2026}
+          \resumeItemListStart
+            \resumeItem{Built a meal-tracking app that analyzes food photos, winning first place among \textbf{50+} teams}
+          \resumeItemListEnd
+
+    \resumeSubHeadingListEnd
+
+%-----------LEADERSHIP-----------
+\section{Leadership}
+  \resumeSubHeadingListStart
+    \resumeSubheadingTwo
+      {Example Student Organization -- Vice President}{Sept 2025 -- Present}
+      \resumeItemListStart
+        \resumeItem{Organized \textbf{12} technical workshops attended by \textbf{400+} students}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------SKILLS-----------
+\section{Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+
+    \small{\item{
+     \textbf{Programming Languages}{: Python, Java, JavaScript/TypeScript, SQL} \\
+     \textbf{Frameworks}{: React, Next.js, FastAPI, Flask} \\
+     \textbf{Developer Tools}{: Git, Docker, AWS, GitHub Actions, Linux}
+    }}
+ \end{itemize}
+
+
+\end{document}

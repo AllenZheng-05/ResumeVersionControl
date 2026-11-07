@@ -9,36 +9,42 @@ the job posting, and notes on why each bullet was chosen. That gives you a
 searchable history of every application, and a new resume always starts from
 your latest, most complete material.
 
+It's built for students and early-career applicants who want a one-page resume.
+You don't need to know LaTeX: Claude writes it, and you review the PDFs.
+
 ```
 master/master_resume.tex   ← everything, no length limit (you maintain this)
         │
         ▼  "Tailor my resume for <job posting URL>"
 resumes/software-engineer/Acme_SoftwareEngineerIntern_2026-10-13/
-    Jane_Doe_Resume.tex    ← exactly 1 page, picked and reworded for this JD
+    Jane_Doe_Resume.tex    ← exactly 1 page, picked and reworded for this job description (JD)
     Jane_Doe_Resume.pdf    ← what you upload
     job_posting.md         ← JD, ATS keywords, tailoring notes, dates, pay
 ```
 
 ## What's in here
 
-| Path | Purpose |
-| --- | --- |
-| `CLAUDE.md` | Instructions Claude Code reads every session: workflow, bullet style guide, naming rules. **This is the workflow.** |
-| `master/master_resume.tex` | Your master resume, in LaTeX ([Jake's Resume](https://github.com/sb2nov/resume) template). Starts with placeholder content. |
-| `scripts/build.ps1` | Compiles a `.tex` and checks it. It fails if the resume isn't exactly one page, if text runs off the margin, or if `layout_check.ps1` finds a defect, and warns about bullets that waste a line. |
-| `scripts/layout_check.ps1` | Catches defects that compile fine but look wrong: headings running into their dates, leftover words on Skills rows, bitmap fonts, phantom blank lines, and under-filled bullets. `build.ps1` runs it for you. |
-| `scripts/ats_check.ps1` | A local approximation of an applicant tracking system (ATS) scan. It extracts the PDF text the way ATS parsers do, checks that your contact info and section headers survive, and scores how many of the job description's keywords appear, with exact and with-variants scores and separate required and preferred scores. |
-| `scripts/new_application.ps1` | Checks for a prior application to the same company or posting, then creates the application folder with your current preamble and a `job_posting.md` template. |
-| `.claude/settings.json` | Lets Claude run the scripts without asking each time. |
+| Path                          | Purpose                                                                                                                                                                                                                                                                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CLAUDE.md`                   | Instructions Claude Code reads every session: workflow, bullet style guide, naming rules. **This is the workflow.**                                                                                                                                                                                                         |
+| `master/master_resume.tex`    | Your master resume, in LaTeX ([Jake's Resume](https://github.com/jakegut/resume) template). Starts with placeholder content.                                                                                                                                                                                                |
+| `scripts/build.ps1`           | Compiles a `.tex` and checks it. It fails if the resume isn't exactly one page, if text runs off the margin, or if `layout_check.ps1` finds a defect, and warns about bullets that waste a line.                                                                                                                            |
+| `scripts/layout_check.ps1`    | Catches defects that compile fine but look wrong: headings running into their dates, leftover words on Skills rows, bitmap fonts, phantom blank lines, and under-filled bullets. `build.ps1` runs it for you.                                                                                                               |
+| `scripts/ats_check.ps1`       | A local approximation of an applicant tracking system (ATS) scan. It extracts the PDF text the way ATS parsers do, checks that your contact info and section headers survive, and scores how many of the job description's keywords appear, with exact and with-variants scores and separate required and preferred scores. |
+| `scripts/new_application.ps1` | Checks for a prior application to the same company or posting, then creates the application folder with your current preamble and a `job_posting.md` template.                                                                                                                                                              |
+| `.claude/settings.json`       | Lets Claude run the scripts without asking each time.                                                                                                                                                                                                                                                                       |
 
 ## Requirements
 
-- **Claude Code** (CLI, desktop app, or VS Code/JetBrains extension)
+- **Claude Code** (CLI, desktop app, or VS Code/JetBrains extension), which
+  needs a paid Claude plan or API credits
 - **PowerShell** (built into Windows; on macOS/Linux install
   [PowerShell 7](https://learn.microsoft.com/powershell/scripting/install/installing-powershell))
 - **pdflatex**, from [MiKTeX](https://miktex.org/) (Windows) or
-  [TeX Live](https://tug.org/texlive/)/MacTeX
-- **pdfinfo**, **pdftotext**, **pdftohtml**, and **pdffonts**, from
+  [TeX Live](https://tug.org/texlive/)/MacTeX. In MiKTeX, set "install missing
+  packages" to Yes. With TeX Live, use the full install, since smaller ones may
+  be missing packages the template needs.
+- **pdfinfo**, **pdftotext**, **pdftohtml**, **pdffonts**, and **pdftoppm**, from
   [Poppler](https://poppler.freedesktop.org/).
   MiKTeX ships them on Windows. On macOS run `brew install poppler`; on
   Debian/Ubuntu run `apt install poppler-utils`.
@@ -52,32 +58,42 @@ pdfinfo -v
 pdftotext -v
 pdftohtml -v
 pdffonts -v
+pdftoppm -v
 ```
 
 ## Setup
 
-1. **Get your own copy** by cloning or forking this repo (or "Use this
-   template" on GitHub), and **keep it private**. Your resume history includes
-   your phone number and every company you applied to. If you downloaded a zip
-   instead, turn it into a repo:
+1. **Get your own private copy.** On this repo's GitHub page, click **Use this
+   template → Create a new repository**, choose **Private**, then clone your
+   new repo. Don't fork it: a fork of a public repo can't be made private, and your resumes will contain your personally identifying information
+2. **On Windows, allow local scripts to run.** Windows often blocks them by
+   default, so run this once in PowerShell:
    ```
-   git init
-   git add -A
-   git commit -m "Initial commit"
+   Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
    ```
-2. **Set your file name.** In `CLAUDE.md`, under *0. Setup*, change
+   If you downloaded a zip, also run this from the repo folder:
+   ```
+   Get-ChildItem scripts | Unblock-File
+   ```
+3. **Set your file name.** In `CLAUDE.md`, under _0. Setup_, change
    `Jane_Doe_Resume` to `<FirstName>_<LastName>_Resume`. That's the file name
    recruiters will see on every PDF you upload.
-3. **Fill in your master resume.** The easiest way is to open Claude Code in
+4. **Fill in your master resume.** The easiest way is to open Claude Code in
    this folder and say:
+
    > Set up my master resume from my current resume: `<paste text, or give a path to a PDF/.docx/.tex>`
 
    Claude converts it into the template's format, asks follow-up questions to
    get missing numbers and details, and shows you every change before writing
    it. You can also edit `master/master_resume.tex` by hand instead.
-4. **Build it** to make sure it compiles:
+
+5. **Build it** to make sure it compiles:
    ```
    ./scripts/build.ps1 -TexPath master/master_resume.tex -AllowAnyLength
+   ```
+   It worked if you see a line like this (the page count will vary):
+   ```
+   Compiled master/master_resume.tex -> master_resume.pdf (1 page(s))
    ```
 
 ## Day-to-day usage
@@ -107,7 +123,12 @@ resumes get.
 
 > Tailor my resume for this posting: https://company.com/careers/12345 — software-engineer category
 
-or paste the job description text if the link needs a login. Claude then:
+The category is just the folder the application is filed under. Pick any
+kebab-case name, like `software-engineer` or `data-science`, and reuse it for
+similar roles.
+
+If Claude can't read the link, for example because it needs a login or the page
+won't load, paste the job description text instead. Claude then:
 
 1. Checks whether you've already applied there, then reads the posting and your
    **whole** master resume, notes included
@@ -125,8 +146,12 @@ or paste the job description text if the link needs a login. Claude then:
 Each resume is generated **fresh from the master**, never copied from an
 earlier tailored resume, so it always uses your latest content.
 
-`Date Applied` stays blank until you tell Claude you've submitted. After that the
-folder is a frozen record of what you sent, and Claude won't edit it.
+`Date Applied` stays blank until you tell Claude you've submitted:
+
+> I submitted the Acme application.
+
+After that the folder is a frozen record of what you sent, and Claude won't
+edit it.
 
 ### Archive old applications
 
@@ -136,6 +161,9 @@ This moves the matching folders to `resumes/archive/` with `git mv`. Nothing is
 deleted.
 
 ### Run the scripts yourself
+
+On Windows, run these in PowerShell, not Command Prompt or Git Bash. On
+macOS/Linux, any terminal works once PowerShell 7 is installed.
 
 ```
 ./scripts/build.ps1 -TexPath resumes/<category>/<folder>/<YourName>_Resume.tex
@@ -166,5 +194,9 @@ deleted.
   raise it.
 - Claude follows a strict "never invent a metric or skill" rule, but you're
   the one applying. Read each resume before you send it.
-#   R e s u m e V e r s i o n C o n t r o l  
- 
+
+## License
+
+[MIT](LICENSE). The resume template is
+[Jake's Resume](https://github.com/jakegut/resume) by Jake Gutierrez, based on
+[sb2nov/resume](https://github.com/sb2nov/resume), both also MIT.

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(./scripts/build.ps1 *)",
+      "PowerShell(./scripts/layout_check.ps1 *)",
+      "PowerShell(./scripts/ats_check.ps1 *)",
+      "PowerShell(./scripts/new_application.ps1 *)",
+      "Bash(./scripts/build.ps1 *)",
+      "Bash(./scripts/layout_check.ps1 *)",
+      "Bash(./scripts/ats_check.ps1 *)",
+      "Bash(./scripts/new_application.ps1 *)"
+    ]
+  }
+}
